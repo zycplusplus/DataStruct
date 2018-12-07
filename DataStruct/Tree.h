@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef ZYCPP_BSTREE_NODE_H
-#define ZYCPP_BSTREE_NODE_H
+#ifndef ZYCPP_TREE_NODE_H
+#define ZYCPP_TREE_NODE_H
 
 namespace zycpp {
 template <typename K>
@@ -26,6 +26,16 @@ class TreeNode {
     delete left_;
     delete right_;
   }
+};
+
+template <typename K, typename V>
+class AVLNode : public TreeNode<K, V> {
+ public:
+  int hight_;
+
+  AVLNode(K k, V v) noexcept : TreeNode<K, V>(k, v), hight_(1) {}
+
+  AVLNode(const AVLNode& tn) noexcept : TreeNode<K, V>(tn), hight_(tn.hight_) {}
 };
 }  // namespace zycpp
 

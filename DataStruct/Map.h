@@ -17,7 +17,7 @@ class Map {
  public:
   Map() noexcept : root_(nullptr), size_(0), lt_(LT()) {}
 
-  virtual ~Map() {  delete root_;}
+  virtual ~Map() { delete root_; }
 
   size_t size() { return size_; };
 
@@ -29,14 +29,14 @@ class Map {
 };
 
 template <typename K, typename V, typename LT = LessThan<K>>
-class BSTMap : public Map<K, V, LT> {
- public:
+class BSTMap : virtual public Map<K, V, LT> {
   using NTy = TreeNode<K, V>;
   using Map<K, V, LT>::root_;
   using Map<K, V, LT>::size_;
   using Map<K, V, LT>::lt_;
 
-  void insert(const NTy& n) override {
+ public:
+  virtual void insert(const NTy& n) override {
     if (root_ == nullptr) {
       root_ = new NTy(n);
     }
@@ -67,7 +67,7 @@ class BSTMap : public Map<K, V, LT> {
     size_++;
   }
 
-  void erase(const K& k) override {
+  virtual void erase(const K& k) override {
     if (root_ == nullptr) {
       return;
     }
@@ -165,7 +165,7 @@ class BSTMap : public Map<K, V, LT> {
     return;
   }
 
-  NTy* find(const K& k) const override {
+  virtual NTy* find(const K& k) const override {
     if (root_ == nullptr) {
       return nullptr;
     }
@@ -189,12 +189,28 @@ class BSTMap : public Map<K, V, LT> {
     }
   }
 
-  V& operator[](const K& k) { return find(k)->v_; }
+  virtual V& operator[](const K& k) { return find(k)->v_; }
 
-  const V& operator[](const K& k) const { return find(k)->v_; }
+  virtual const V& operator[](const K& k) const { return find(k)->v_; }
 };
 
-class AVLMap {};
+template <typename K, typename V, typename LT = LessThan<K>>
+class AVLMap : virtual public BSTMap<K, V, LT> {
+  using Map<K, V, LT>::root_;
+  using Map<K, V, LT>::size_;
+  using Map<K, V, LT>::lt_;
+
+ public:
+  void insert(const NTy& n) override {
+    if (root_ == nullptr) {
+      root_ = new NTy(n);
+    }
+  }
+
+  void erase(cosnt K& k) override {}
+
+ public:
+};
 }  // namespace zycpp
 
 #endif
