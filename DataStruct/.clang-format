@@ -1,0 +1,9 @@
+BasedOnStyle: Google
+ColumnLimit: 200
+IndentWidth: 2
+DerivePointerAlignment: false
+PointerAlignment: Left
+AlignConsecutiveAssignments: true
+BreakBeforeBraces: Custom
+BraceWrapping:
+  BeforeElse: true
