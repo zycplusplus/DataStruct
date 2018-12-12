@@ -20,8 +20,6 @@ class TreeNode {
 
   TreeNode(K k, V v) noexcept : k_(k), v_(v), left_(nullptr), right_(nullptr) {}
 
-  TreeNode(const ThisType& tn) noexcept : k_(tn.k_), v_(tn.v_), left_(tn.left_), right_(tn.right_) {}
-
   virtual ~TreeNode() {
     delete left_;
     delete right_;
@@ -34,8 +32,6 @@ class AVLNode : public TreeNode<K, V> {
   int hight_;
 
   AVLNode(K k, V v) noexcept : TreeNode<K, V>(k, v), hight_(1) {}
-
-  AVLNode(const AVLNode& tn) noexcept : TreeNode<K, V>(tn), hight_(tn.hight_) {}
 };
 }  // namespace zycpp
 
